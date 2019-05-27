@@ -1,49 +1,39 @@
 package it.formazione.sme.soldatiapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
 public class Soldato {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer matricola;
+
+  @Column(nullable = false)
   private String nome;
+
+  @Column(nullable = false)
   private String cognome;
 
+  @Column(nullable = false, unique = true, length = 50)
+  private String email;
+
+  @JsonIgnore
+  private String passwordHash;
+
+  @Column(nullable = false)
   private LocalDate dataDiNascita;
 
-  public Integer getMatricola() {
-    return matricola;
-  }
-
-  public void setMatricola(Integer matricola) {
-    this.matricola = matricola;
-  }
-
-  public String getNome() {
-    return nome;
-  }
-
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
-
-  public String getCognome() {
-    return cognome;
-  }
-
-  public void setCognome(String cognome) {
-    this.cognome = cognome;
-  }
-
-  public LocalDate getDataDiNascita() {
-    return dataDiNascita;
-  }
-
-  public void setDataDiNascita(LocalDate dataDiNascita) {
-    this.dataDiNascita = dataDiNascita;
-  }
+  @ManyToOne
+  @JsonManagedReference
+  private Grado grado;
 
 }

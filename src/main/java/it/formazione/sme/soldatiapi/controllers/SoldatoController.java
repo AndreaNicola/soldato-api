@@ -2,7 +2,6 @@ package it.formazione.sme.soldatiapi.controllers;
 
 import it.formazione.sme.soldatiapi.bodies.SoldatoBody;
 import it.formazione.sme.soldatiapi.entities.Soldato;
-import it.formazione.sme.soldatiapi.services.SoldatoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,40 +9,24 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Collection;
 
-@RestController
 @RequestMapping("soldati")
-public class SoldatoController {
+public interface SoldatoController {
 
-  private final SoldatoService soldatoService;
+    @GetMapping
+    Collection<Soldato> list();
 
-  public SoldatoController(SoldatoService soldatoService) {
-    this.soldatoService = soldatoService;
-  }
+    @GetMapping("{id}")
+    ResponseEntity<Soldato> findById(@PathVariable Integer id);
 
-  @GetMapping
-  public Collection<Soldato> list() {
-    return soldatoService.list();
-  }
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    ResponseEntity<Soldato> deleteById(@PathVariable Integer id);
 
-  @GetMapping("{id}")
-  public ResponseEntity<Soldato> findById(@PathVariable Integer id) {
-    return ResponseEntity.of(soldatoService.findById(id));
-  }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    Soldato insert(@RequestBody @Valid SoldatoBody soldatoBody);
 
-  @DeleteMapping("{id}")
-  public ResponseEntity<Soldato> deleteById(@PathVariable Integer id) {
-    return ResponseEntity.of(soldatoService.delete(id));
-  }
-
-  @PostMapping
-  @ResponseStatus(HttpStatus.CREATED)
-  public Soldato insert(@RequestBody @Valid SoldatoBody soldatoBody) {
-    return soldatoService.insert(soldatoBody);
-  }
-
-  @PutMapping("{id}")
-  public ResponseEntity insert(@PathVariable Integer id, @RequestBody @Valid SoldatoBody soldatoBody) {
-    return ResponseEntity.of(soldatoService.update(id, soldatoBody));
-  }
+    @PutMapping("{id}")
+    ResponseEntity<Soldato> update(@PathVariable Integer id, @RequestBody @Valid SoldatoBody soldatoBody);
 
 }

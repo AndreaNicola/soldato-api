@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Entity
 @Getter
@@ -35,5 +36,14 @@ public class Soldato {
   @ManyToOne
   @JsonManagedReference
   private Grado grado;
+
+  @ManyToMany
+  @JsonManagedReference
+  private Collection<Corso> corsiFrequentati;
+
+  @ManyToMany
+  @JsonManagedReference
+  private Collection<Corso> corsiInCorso;
+
 
 }

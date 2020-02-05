@@ -47,13 +47,74 @@ Map a rest controller using plural nouns of the entities you're going to expose 
 
 I usually use this tier of the application to:
 * validate request bodies
-* decouple service from controllers using dependency injection
+* decouple service from controllers using dependency injection (i recommend using constructor injection... stop using @Autowire like 10 years ago)
 * manipulate service results to produce a better output for the consumer of the service (eventually)
 
 ## Services
 
+Services are java classes used to represent out business logic. Usually those classes could contain:
+* complex checks
+* calculations
+* usages of repositories methods
+
 ## Entities
+
+Our data representation!
+
+```Java
+@Entity
+@Data
+public class Corso {
+
+  @Id
+  @Column(name = "cod_corso", length = 36)
+  private UUID id;
+
+  @Column(name = "nome_corso", nullable = false)
+  private String nome;
+
+  @Column(name = "des_corso", nullable = false)
+  private String descrizione;
+
+  @ManyToMany(mappedBy = "corsiFrequentati")
+  @JsonBackReference
+  private Collection<Soldato> soldatiCheHannoFrequentato;
+
+  @ManyToMany(mappedBy = "corsiInCorso")
+  @JsonBackReference
+  private Collection<Soldato> soldatiCheStannoFrequentando;
+
+}
+```
 
 ## Repositories
 
+Did you ever had to write a DAO manually?? well forget about it!
+
+Springdata will generate the implementation for you! All it need is an interface with your DAO behaviour...
+
+```
+public interface CorsoRepository extends JpaRepository<Corso, UUID> {
+  List<Corso> findAllByNome(String nome);
+}
+```
+
 ## Validations
+
+I found really often snippet of entities with validations metadata. Why mix data layer and controller layer?
+
+Keep you entities clean and create brand new POJOs for validation:
+
+```
+@Getter
+@Setter
+public class CorsoBody {
+
+  @NotBlank(message = "nome corso obbligatorio")
+  private String nome;
+
+  @NotBlank(message = "descrizione corso obbligatoria")
+  private String descrizione;
+
+}
+```

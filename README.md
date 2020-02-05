@@ -93,7 +93,7 @@ Did you ever had to write a DAO manually?? well forget about it!
 
 Springdata will generate the implementation for you! All it need is an interface with your DAO behaviour...
 
-```
+```Java
 public interface CorsoRepository extends JpaRepository<Corso, UUID> {
   List<Corso> findAllByNome(String nome);
 }
@@ -105,7 +105,7 @@ I found really often snippet of entities with validations metadata. Why mix data
 
 Keep you entities clean and create brand new POJOs for validation:
 
-```
+```Java
 @Getter
 @Setter
 public class CorsoBody {

@@ -13,6 +13,11 @@ In this application you can find examples of:
 
 ## Controllers
 
+A controller is implemented (here, in this project) in 2 Java files:
+* The interface
+* The concrete class
+
+
 ## Services
 
 ## Entities

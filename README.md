@@ -19,7 +19,7 @@ A controller is implemented (here, in this project) in 2 Java files:
 
 ### The interface
 
-In this project i used the interface only to define the paths of my API. It's really easy to start a new project just by shaping the endpoints of the API. Try to keep i'n mind that often you're not the only one consuming it! Keep it predictable and use conventional paths and http methods!
+In this project I used the interface only to define the paths of my API. It's really easy to start a new project just by shaping the endpoints of the API. Try to keep in mind that frequently you're not the only one consuming it! Keep it predictable and use conventional paths and http methods!
 
 ```Java
 @RequestMapping("corsi")
@@ -47,7 +47,7 @@ Map a rest controller using plural nouns of the entities you're going to expose 
 
 I usually use this tier of the application to:
 * validate request bodies
-* decouple service from controllers using dependency injection (i recommend using constructor injection... stop using @Autowire like 10 years ago)
+* decouple service from controllers using dependency injection (I recommend using constructor injection... stop using @Autowire like 10 years ago)
 * manipulate service results to produce a better output for the consumer of the service (eventually)
 
 ## Services
@@ -89,9 +89,9 @@ public class Corso {
 
 ## Repositories
 
-Did you ever had to write a DAO manually?? well forget about it!
+Did you ever have to write a DAO manually?? Well, forget about it!
 
-Springdata will generate the implementation for you! All it need is an interface with your DAO behaviour...
+Springdata will generate the implementation for you! All it needs is an interface with your DAO behaviour...
 
 ```Java
 public interface CorsoRepository extends JpaRepository<Corso, UUID> {
@@ -101,7 +101,7 @@ public interface CorsoRepository extends JpaRepository<Corso, UUID> {
 
 ## Validations
 
-I found really often snippet of entities with validations metadata. Why mix data layer and controller layer?
+Many times I've found snippet of entities with validations metadata. Why mix data layer and controller layer?
 
 Keep you entities clean and create brand new POJOs for validation:
 

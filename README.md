@@ -47,7 +47,7 @@ Map a rest controller using plural nouns of the entities you're going to expose 
 
 I usually use this tier of the application to:
 * validate request bodies
-* decouple service from controllers using dependency injection (I recommend using constructor injection... stop using @Autowire like 10 years ago)
+* decouple services from controllers using dependency injection (I recommend using constructor injection... stop using @Autowire like 10 years ago)
 * manipulate service results to produce a better output for the consumer of the service (eventually)
 
 ## Services
